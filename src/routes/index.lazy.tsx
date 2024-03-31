@@ -3,7 +3,7 @@ import { createLazyFileRoute } from "@tanstack/react-router"
 const Index = () => {
     return (
         <div className="p-2">
-            <h3 className="animate-bounce direction-alternate">Welcome Home!</h3>
+            <h3>Do it better</h3>
         </div>
     )
 }
