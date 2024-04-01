@@ -33,7 +33,10 @@ export const Route = createRootRoute({
                     !session
                         ?
                         <div className="h-screen flex justify-center items-center">
-                            <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+                            <div className="space-y-4">
+                                <h1 className="text-center text-2xl font-bold">Smart TODO</h1>
+                                <Auth supabaseClient={supabase} providers={["google", "github"]} socialLayout="horizontal" appearance={{ theme: ThemeSupa }} />
+                            </div>
                         </div>
                         :
                         <>
