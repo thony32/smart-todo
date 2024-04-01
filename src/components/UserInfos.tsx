@@ -20,7 +20,7 @@ const UserInfos = () => {
                     </Avatar>
                     <div className='flex flex-col gap-2'>
                         <h3 className='text-sm font-extrabold'>{full_name}</h3>
-                        <h3 className='text-[10px] font-light tracking-wider'>{email}</h3>
+                        <h3 className='text-xs font-light tracking-wider'>{email}</h3>
                     </div>
                 </div>
             )}
