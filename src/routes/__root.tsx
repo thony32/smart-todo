@@ -3,16 +3,15 @@ import Navbar from "../components/Navbar";
 import { createRootRoute, Outlet } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 
-import { createClient } from '@supabase/supabase-js'
+import { Session } from '@supabase/supabase-js'
 import { useEffect, useState } from "react";
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
-
-const supabase = createClient('https://hiwtdeuhsiufypdquwon.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhpd3RkZXVoc2l1ZnlwZHF1d29uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE5NDg4MzksImV4cCI6MjAyNzUyNDgzOX0.Iquugqk2__nfFhpkGLRVaZjWGRp9uaavZgfCA7dzcFs')
+import supabase from "@/utils/supabaseClient";
 
 export const Route = createRootRoute({
     component: () => {
-        const [session, setSession] = useState(null) as any
+        const [session, setSession] = useState<Session | null>(null)
 
         useEffect(() => {
             supabase.auth.getSession().then(({ data: { session } }) => {

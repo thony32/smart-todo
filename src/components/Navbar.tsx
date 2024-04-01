@@ -1,4 +1,5 @@
 import { ThemeToggle } from "./ThemeToggle"
+import Logout from "./Logout"
 
 const Navbar = () => {
     return (
@@ -6,8 +7,9 @@ const Navbar = () => {
             <div>
                 <h1>Smart todo</h1>
             </div>
-            <div>
+            <div className="flex items-center gap-5">
                 <ThemeToggle />
+                <Logout />
             </div>
         </div>
     )
