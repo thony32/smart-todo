@@ -28,13 +28,13 @@ export const Route = createRootRoute({
         }, [])
 
         return (
-            <>
+            <ThemeHandler defaultTheme="dark" storageKey="vite-ui-theme">
                 {
                     !session
                         ?
                         <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
                         :
-                        <ThemeHandler defaultTheme="dark" storageKey="vite-ui-theme" >
+                        <>
                             <div className="p-3">
                                 <Navbar />
                             </div>
@@ -42,10 +42,10 @@ export const Route = createRootRoute({
                                 <Outlet />
                             </main>
                             <TanStackRouterDevtools />
-                        </ThemeHandler >
+                        </>
 
                 }
-            </>
+            </ThemeHandler>
         );
     },
 })
