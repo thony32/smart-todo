@@ -8,6 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 .idea
 .vscode
+env.ts
 
 
 node_modules
