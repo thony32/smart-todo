@@ -6,14 +6,12 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import supabase from "@/utils/supabaseClient";
-// import { AuthProvider } from "@/contexts/AuthContext";
-import { useAuthStore } from "@/store/session.store";
-import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 
 
 export const Route = createRootRoute({
     component: () => {
-        const session = useAuthStore(state => state.session);
+        const session = useAuth()
 
         return (
             <AuthProvider>
