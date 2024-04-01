@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import ThemeHandler from "../components/ThemeHandler";
 import Navbar from "../components/Navbar";
 import { createRootRoute, Outlet } from "@tanstack/react-router"
