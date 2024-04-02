@@ -8,7 +8,7 @@ const UserInfos = () => {
         return <div>Please log in to see user information</div>;
     }
 
-    const { email, avatar_url, full_name ,iss } = session.user.user_metadata;
+    const { email, avatar_url, full_name, iss } = session.user.user_metadata;
 
     return (
         <div className="user-infos">
