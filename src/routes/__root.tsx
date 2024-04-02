@@ -7,12 +7,12 @@ import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import supabase from "@/utils/supabaseClient";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { useAuthStore } from "@/store/session.store";
 
 
 export const Route = createRootRoute({
     component: () => {
-        const session = useAuth()
-
+        const session = useAuthStore(state => state.session);
         return (
             <AuthProvider>
                 <ThemeHandler defaultTheme="dark" storageKey="vite-ui-theme">
@@ -35,7 +35,6 @@ export const Route = createRootRoute({
                                 </main>
                                 <TanStackRouterDevtools />
                             </>
-    
                     }
                 </ThemeHandler>
             </AuthProvider>
