@@ -6,7 +6,7 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import supabase from "@/utils/supabaseClient";
-import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { useAuthStore } from "@/store/session.store";
 
 
