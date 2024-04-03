@@ -8,12 +8,18 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [isLogin, setIsLogin] = useState(false);
+
     const handleLogin = async (event: any) => {
         event.preventDefault();
+        
+        await setIsLogin(true);
         const { error } = await supabase.auth.signInWithPassword({
             email,
             password,
         });
+        await setIsLogin(false);
+
         if (error) {
             console.error(error);
         }
@@ -44,7 +50,7 @@ const Login = () => {
                             <Input type="password" id="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)} />
                         </div>
                         <div className="flex justify-end">
-                            <Button type="submit">Log in</Button>
+                            <Button type="submit">Log in {isLogin && 'Loading'}</Button>
                         </div>
                     </div>
                     <hr />
