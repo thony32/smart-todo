@@ -12,7 +12,7 @@ const Login = () => {
 
     const handleLogin = async (event: any) => {
         event.preventDefault();
-        
+
         await setIsLogin(true);
         const { error } = await supabase.auth.signInWithPassword({
             email,
@@ -50,7 +50,10 @@ const Login = () => {
                             <Input type="password" id="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)} />
                         </div>
                         <div className="flex justify-end">
-                            <Button type="submit">Log in {isLogin && 'Loading'}</Button>
+                            <Button className="flex items-center gap-2" type="submit">
+                                Log in
+                                {isLogin && <span className="loading loading-dots loading-md"></span>}
+                            </Button>
                         </div>
                     </div>
                     <hr />
