@@ -74,3 +74,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+@font-face {
+  font-family: 'RustedBevel';
+  src: url('/fonts/RustedBevel.otf') format('opentype');
+}
+
+.font-rusted-bevel {
+  font-family: 'RustedBevel', sans-serif;
+}
