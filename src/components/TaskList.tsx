@@ -22,7 +22,7 @@ const TaskList = () => {
         {todoError && <div>Error: {todoError.message}</div>}
         {todos?.map((todo) => (
           <div key={todo.id}>
-            {todo.name} , {todo.email}
+            {todo.name} , {todo.description}
           </div>
         ))}
         {todos?.length === 0 && <div>No todo found</div>}

@@ -1,12 +1,5 @@
 import supabase from "@/utils/supabaseClient";
-
-interface Todo {
-    id: number;
-    user_id?: string;
-    name?: string;
-    created_at: Date;
-    email?: string;
-}
+import Todo from "@/models/Todo";
 
 class TodoService {
     async getTodos(): Promise<Todo[]> {
@@ -16,6 +9,17 @@ class TodoService {
                 throw error;
             }
             return Todos || [];
+        } catch (error) {
+            throw error;
+        }
+    }
+    async createTodo(todo: Todo) {
+        try {
+            const { data, error } = await supabase.from('Todo').insert(todo);
+            if (error) {
+                throw error;
+            }
+            return data;
         } catch (error) {
             throw error;
         }
