@@ -10,11 +10,11 @@ interface Todo {
 class TodoService {
     async getTodos(): Promise<Todo[]> {
         try {
-            const { data, error } = await supabase.from("Todo").select("*");
+            const { data: Todos, error } = await supabase.from('Todo').select('*')
             if (error) {
                 throw error;
             }
-            return data || [];
+            return Todos || [];
         } catch (error) {
             throw error;
         }
