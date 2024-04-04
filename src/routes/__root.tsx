@@ -7,11 +7,13 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { useAuthStore } from "@/store/session.store";
 import Login from "@/components/Login";
 import { Toaster } from 'react-hot-toast';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 
 export const Route = createRootRoute({
     component: () => {
         const session = useAuthStore(state => state.session);
+        const queryClient = new QueryClient();
         return (
             <AuthProvider>
                 <ThemeHandler defaultTheme="dark" storageKey="vite-ui-theme">
@@ -27,7 +29,9 @@ export const Route = createRootRoute({
                                     <Navbar />
                                 </div>
                                 <main className="px-[1%]">
-                                    <Outlet />
+                                    <QueryClientProvider client={queryClient}>
+                                        <Outlet />
+                                    </QueryClientProvider>
                                 </main>
                                 <TanStackRouterDevtools />
                             </>

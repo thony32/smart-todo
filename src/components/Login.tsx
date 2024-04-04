@@ -1,4 +1,3 @@
-import supabase from "@/utils/supabaseClient";
 import { useState } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -6,6 +5,7 @@ import { Button } from "./ui/button";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import toast from "react-hot-toast";
+import AuthService from "@/services/AuthService";
 
 const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Email is required'),
@@ -22,46 +22,43 @@ const Login = () => {
         },
         validationSchema: validationSchema,
         onSubmit: async (values) => {
-            await setIsLogin(true);
-
-            const { error } = await supabase.auth.signInWithPassword({
-                email: values.email,
-                password: values.password,
-            });
-            if (error) {
-                toast.error(error.message, {
-                    duration: 3000,
-                    position: 'bottom-center',
-                    className: 'bg-error text-white',
-                });
-            } else {
+            try {
+                await setIsLogin(true);
+                await AuthService.signInWithEmailAndPassword(values.email, values.password);
                 toast.success('Welcome to Smart TODO', {
                     duration: 5000,
                     position: 'bottom-center',
                     className: 'bg-success text-white',
                 });
+            } catch (error: any) {
+                toast.error(error.message, {
+                    duration: 3000,
+                    position: 'bottom-center',
+                    className: 'bg-error text-white',
+                });
+            } finally {
+                await setIsLogin(false);
             }
-
-            await setIsLogin(false);
         }
     });
 
     const handleSocialLogin = async (provider: any) => {
-        const { error } = await supabase.auth.signInWithOAuth({
-            provider,
-        });
-        if (error) {
-            toast.error(error.message, {
-                duration: 3000,
-                position: 'bottom-center',
-                className: 'bg-error text-white',
-            });
-        } else {
+        try {
+            await setIsLogin(true);
+            await AuthService.signInWithOAuth(provider);
             toast.success('Welcome to Smart TODO', {
                 duration: 5000,
                 position: 'bottom-center',
                 className: 'bg-success text-white',
             });
+        } catch (error: any) {
+            toast.error(error.message, {
+                duration: 3000,
+                position: 'bottom-center',
+                className: 'bg-error text-white',
+            });
+        } finally {
+            await setIsLogin(false);
         }
     };
     return (
