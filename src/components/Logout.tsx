@@ -1,11 +1,10 @@
-import supabase from "@/utils/supabaseClient"
 import { Button } from "./ui/button";
 import { LogOutIcon } from "lucide-react";
+import AuthService from "@/services/AuthService";
 
 const Logout = () => {
     const handleLogout = async () => {
-        const { error } = await supabase.auth.signOut();
-        if (error) console.log('Error logging out:', error.message);
+        await AuthService.signOut();
     };
     return (
         <Button onClick={() => handleLogout()} variant="outline" size="icon">
