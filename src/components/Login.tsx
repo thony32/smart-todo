@@ -5,6 +5,7 @@ import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import toast from "react-hot-toast";
 
 const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Email is required'),
@@ -28,9 +29,13 @@ const Login = () => {
                 password: values.password,
             });
             if (error) {
-                console.error(error);
+                toast.error(error.message, {
+                    duration: 3000,
+                    position: 'bottom-center',
+                    className: 'bg-error text-white',
+                });
             }
-            
+
             await setIsLogin(false);
         }
     });
@@ -40,7 +45,11 @@ const Login = () => {
             provider,
         });
         if (error) {
-            console.error(error);
+            toast.error(error.message, {
+                duration: 3000,
+                position: 'bottom-center',
+                className: 'bg-error text-white',
+            });
         }
     };
     return (

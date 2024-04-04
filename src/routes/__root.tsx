@@ -6,6 +6,7 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 import { AuthProvider } from "@/contexts/AuthContext";
 import { useAuthStore } from "@/store/session.store";
 import Login from "@/components/Login";
+import { Toaster } from 'react-hot-toast';
 
 
 export const Route = createRootRoute({
@@ -32,6 +33,7 @@ export const Route = createRootRoute({
                             </>
                     }
                 </ThemeHandler>
+                <Toaster />
             </AuthProvider>
         );
     },
