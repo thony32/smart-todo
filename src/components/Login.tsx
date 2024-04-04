@@ -34,6 +34,12 @@ const Login = () => {
                     position: 'bottom-center',
                     className: 'bg-error text-white',
                 });
+            } else {
+                toast.success('Welcome to Smart TODO', {
+                    duration: 5000,
+                    position: 'bottom-center',
+                    className: 'bg-success text-white',
+                });
             }
 
             await setIsLogin(false);
@@ -49,6 +55,12 @@ const Login = () => {
                 duration: 3000,
                 position: 'bottom-center',
                 className: 'bg-error text-white',
+            });
+        } else {
+            toast.success('Welcome to Smart TODO', {
+                duration: 5000,
+                position: 'bottom-center',
+                className: 'bg-success text-white',
             });
         }
     };
@@ -67,7 +79,7 @@ const Login = () => {
                                     <div className="text-xs text-error">{formik.errors.email}</div>
                                 )}
                             </div>
-                            <Input type="email" id="email" placeholder="Email" {...formik.getFieldProps('email')} />
+                            <Input className={`${formik.touched.email && formik.errors.email ? 'border-error focus-visible:ring-error' : ''}`} type="email" id="email" placeholder="Email" {...formik.getFieldProps('email')} />
                         </div>
                         <div className="grid w-full max-w-sm items-center gap-1.5">
                             <div className="flex justify-between">
@@ -76,7 +88,7 @@ const Login = () => {
                                     <div className="text-xs text-error">{formik.errors.password}</div>
                                 )}
                             </div>
-                            <Input type="password" id="password" placeholder="Password" {...formik.getFieldProps('password')} />
+                            <Input className={`${formik.touched.password && formik.errors.password ? 'border-error focus-visible:ring-error' : ''}`} type="password" id="password" placeholder="Password" {...formik.getFieldProps('password')} />
                         </div>
                         <div className="flex justify-end">
                             <Button className="flex items-center gap-2" type="submit">
