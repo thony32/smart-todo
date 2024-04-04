@@ -29,6 +29,9 @@ dependencies:
   '@supabase/supabase-js':
     specifier: ^2.41.1
     version: 2.41.1
+  '@tanstack/react-query':
+    specifier: ^5.28.14
+    version: 5.28.14(react@18.2.0)
   '@tanstack/react-router':
     specifier: ^1.26.1
     version: 1.26.1(react-dom@18.2.0)(react@18.2.0)
@@ -1701,6 +1704,19 @@ packages:
   /@tanstack/history@1.22.8:
     resolution: {integrity: sha512-PJoMQfre4+QoLsZhbicZV9nit9LapyyZmvbnT289GJglK4owr+TPsQNqTWC1D6LlOCBndiFrPCtapKNO67CAAg==}
     engines: {node: '>=12'}
+
+  /@tanstack/query-core@5.28.13:
+    resolution: {integrity: sha512-C3+CCOcza+mrZ7LglQbjeYEOTEC3LV0VN0eYaIN6GvqAZ8Foegdgch7n6QYPtT4FuLae5ALy+m+ZMEKpD6tMCQ==}
+    dev: false
+
+  /@tanstack/react-query@5.28.14(react@18.2.0):
+    resolution: {integrity: sha512-cZqt03Igb3I9tM72qNX5TAAmeYl75Z+k4Mv92VkXIXc2hCrv0fIywd7GN3JV1BBJl4mr7Cc+OOKKOPy8sNVOkA==}
+    peerDependencies:
+      react: ^18.0.0
+    dependencies:
+      '@tanstack/query-core': 5.28.13
+      react: 18.2.0
+    dev: false
 
   /@tanstack/react-router@1.26.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-k+qI37wFJWfF1n6kSQ1T70xsw+muxMGa2nDjaaYlsskjazYTOjWeoVN+Dk0LEGQIPgIHhhzUzRfoRaPMi/qq4Q==}
