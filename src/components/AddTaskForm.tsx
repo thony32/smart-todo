@@ -79,7 +79,7 @@ const AddTaskForm = () => {
             Ajouter
             {isAdding && <span className="loading loading-ring loading-md"></span>}
           </Button>
-          <Button>Clear</Button>
+          <Button type="button" onClick={() => formik.resetForm()}>Clear</Button>
         </div>
       </form>
     </div>
