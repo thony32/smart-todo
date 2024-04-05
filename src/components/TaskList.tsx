@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react';
 import toast from "react-hot-toast";
 import { Input } from './ui/input';
-import { useHotkeys } from 'react-hotkeys-hook';
+import useKeyboard from '@/utils/useKeyboard';
 
 const getTodos = async () => {
   try {
@@ -38,10 +38,7 @@ const TaskList = () => {
 
   // * keyboard shortcut
   const searchInputRef = useRef<HTMLInputElement>(null);
-  useHotkeys('ctrl+k', (e) => {
-    e.preventDefault();
-    searchInputRef.current?.focus()
-  });
+  useKeyboard('f', () => searchInputRef.current?.focus());
 
   return (
     <div className='space-y-6'>
@@ -54,7 +51,7 @@ const TaskList = () => {
           <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 opacity-75">
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
-          <kbd className="kbd absolute right-4 -bottom-3 text-[8pt] py-1 px-2">Ctrl k</kbd>
+          <kbd className="kbd absolute right-4 -bottom-3 text-[8pt] py-1 px-2">Ctrl f</kbd>
         </div>
       </div>
       <div>
