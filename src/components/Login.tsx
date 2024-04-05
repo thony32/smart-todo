@@ -64,7 +64,7 @@ const Login = () => {
     return (
         <div className="space-y-8">
             <div className="text-center">
-                <h1 className="text-3xl first-letter:text-5xl font-bold text-success">Smart TODO</h1>
+                <h1 className="text-4xl first-letter:text-5xl font-bold font-rusted-bevel text-success">Smart TODO</h1>
             </div>
             <div>
                 <form className="space-y-5" onSubmit={formik.handleSubmit}>
