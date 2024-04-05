@@ -8,6 +8,7 @@ import { useAuthStore } from "@/store/session.store";
 import Login from "@/components/Login";
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import MadeWith from "@/components/MadeWith";
 
 
 export const Route = createRootRoute({
@@ -36,6 +37,9 @@ export const Route = createRootRoute({
                                 <TanStackRouterDevtools />
                             </>
                     }
+                    <div className="fixed bottom-2 right-2">
+                        <MadeWith />
+                    </div>
                 </ThemeHandler>
                 <Toaster />
             </AuthProvider>
