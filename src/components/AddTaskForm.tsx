@@ -53,12 +53,12 @@ const AddTaskForm = () => {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="font-semibold first-letter:text-2xl">Ajout nouveau TODO</h1>
+                <h1 className="font-semibold first-letter:text-2xl">Ajout something you should do!</h1>
             </div>
             <form className="space-y-5" onSubmit={formik.handleSubmit}>
                 <div className="grid w-full max-w-sm items-center gap-1.5">
                     <div className="flex justify-between">
-                        <Label htmlFor="email">Name</Label>
+                        <Label htmlFor="email">Task</Label>
                         {formik.touched.name && formik.errors.name && <div className="text-xs text-error">{formik.errors.name}</div>}
                     </div>
                     <Input
@@ -84,11 +84,11 @@ const AddTaskForm = () => {
                     />
                 </div>
                 <div className="flex justify-end gap-2">
-                    <Button className="bg-success hover:bg-success/65 duration-100 text-success-content flex gap-2 items-center" type="submit">
+                    <Button className="bg-success hover:bg-success/75 text-success-content flex gap-2 items-center active:scale-95 duration-300" type="submit">
                         Ajouter
                         {isAdding && <span className="loading loading-ring loading-md"></span>}
                     </Button>
-                    <Button type="button" onClick={() => formik.resetForm()}>
+                    <Button type="button" variant="outline" onClick={() => formik.resetForm()}>
                         Clear
                     </Button>
                 </div>
