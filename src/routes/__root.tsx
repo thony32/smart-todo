@@ -25,7 +25,7 @@ export const Route = createRootRoute({
                                 <Login />
                             </div>
                             :
-                            <>
+                            <div className="h-screen w-screen">
                                 <div className="p-3">
                                     <Navbar />
                                 </div>
@@ -35,7 +35,7 @@ export const Route = createRootRoute({
                                     </QueryClientProvider>
                                 </main>
                                 <TanStackRouterDevtools />
-                            </>
+                            </div>
                     }
                     <div className="fixed bottom-2 right-2">
                         <MadeWith />
