@@ -15,5 +15,5 @@ const TaskItems = () => {
 }
 
 export const Route = createFileRoute('/taskItems')({
-  component: () => <TaskItems />
+  component: TaskItems
 })
