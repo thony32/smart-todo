@@ -23,6 +23,7 @@ const TaskList = () => {
     } = useQuery({
         queryKey: ["todoData"],
         queryFn: getTodos,
+        staleTime: 1000 * 60 * 5,
     })
 
     // * real-time data
