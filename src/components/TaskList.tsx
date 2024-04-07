@@ -68,54 +68,40 @@ const TaskList = () => {
             </div>
             {/* List of todo */}
             <div className="grid grid-cols-4 gap-5">
-                {
-                    todos?.map((todo: Todo) => (
-                        <Link key={todo.id} to="/taskItems">
-                            <Card className="cursor-pointer hover:scale-105 duration-75">
-                                <CardHeader>
-                                    <CardTitle>{todo.name}</CardTitle>
-                                    <CardDescription>{todo.description}</CardDescription>
-                                </CardHeader>
-                                {/* aperçu anle task fotsn f mila clickena de ao hita dool ny fandeany */}
-                                <CardContent>
-                                    <div className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0">
-                                        <span className="flex h-2 w-2 translate-y-1 rounded-full bg-green-500" />
-                                        <div className="space-y-1">
-                                            <p className="text-sm font-medium leading-none">
-                                                Task one
-                                            </p>
-                                            <p className="text-sm text-muted-foreground">
-                                                Desciption one
-                                            </p>
-                                        </div>
+                {todos?.map((todo: Todo) => (
+                    <Link key={todo.id} to="/taskItems">
+                        <Card className="cursor-pointer hover:scale-105 duration-300">
+                            <CardHeader>
+                                <CardTitle>{todo.name}</CardTitle>
+                                <CardDescription>{todo.description}</CardDescription>
+                            </CardHeader>
+                            {/* aperçu anle task fotsn f mila clickena de ao hita dool ny fandeany */}
+                            <CardContent>
+                                <div className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0">
+                                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-green-500" />
+                                    <div className="space-y-1">
+                                        <p className="text-sm font-medium leading-none">Task one</p>
+                                        <p className="text-sm text-muted-foreground">Desciption one</p>
                                     </div>
-                                    <div className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0">
-                                        <span className="flex h-2 w-2 translate-y-1 rounded-full bg-gray-500" />
-                                        <div className="space-y-1">
-                                            <p className="text-sm font-medium leading-none">
-                                                Task one
-                                            </p>
-                                            <p className="text-sm text-muted-foreground">
-                                                Desciption one
-                                            </p>
-                                        </div>
+                                </div>
+                                <div className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0">
+                                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-gray-500" />
+                                    <div className="space-y-1">
+                                        <p className="text-sm font-medium leading-none">Task one</p>
+                                        <p className="text-sm text-muted-foreground">Desciption one</p>
                                     </div>
-                                    <div className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0">
-                                        <span className="flex h-2 w-2 translate-y-1 rounded-full bg-yellow-500" />
-                                        <div className="space-y-1">
-                                            <p className="text-sm font-medium leading-none">
-                                                Task one
-                                            </p>
-                                            <p className="text-sm text-muted-foreground">
-                                                Desciption one
-                                            </p>
-                                        </div>
+                                </div>
+                                <div className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0">
+                                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-yellow-500" />
+                                    <div className="space-y-1">
+                                        <p className="text-sm font-medium leading-none">Task one</p>
+                                        <p className="text-sm text-muted-foreground">Desciption one</p>
                                     </div>
-                                </CardContent>
-                            </Card>
-                        </Link>
-                    ))
-                }
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </Link>
+                ))}
             </div>
         </div>
     )

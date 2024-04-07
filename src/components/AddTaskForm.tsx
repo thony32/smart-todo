@@ -84,7 +84,10 @@ const AddTaskForm = () => {
                     />
                 </div>
                 <div className="flex justify-end gap-2">
-                    <Button className="bg-success hover:bg-success/75 text-success-content flex gap-2 items-center active:scale-95 duration-300" type="submit">
+                    <Button
+                        className="bg-success hover:bg-success/75 text-success-content flex gap-2 items-center active:scale-95 duration-300"
+                        type="submit"
+                    >
                         Ajouter
                         {isAdding && <span className="loading loading-ring loading-md"></span>}
                     </Button>
