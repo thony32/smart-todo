@@ -13,9 +13,10 @@ import SkeletonLoader from "./loading/loader"
 import FetchingError from "./fetchingError"
 import { useAuthStore } from "@/store/session.store"
 import FetchingVoid from "./fetchingVoid"
+import { Button } from "./ui/button"
 
-const getTodos = async (user_id: string | undefined, search: string | undefined) => {
-    return TodoService.getTodos(user_id, search)
+const getTodos = async (user_id: any, search: any, page: any) => {
+    return TodoService.getTodos({ front_user_id: user_id, search: search, page_size: page })
 }
 
 const TaskList = () => {
@@ -24,21 +25,33 @@ const TaskList = () => {
     const user_id = session?.user.id as string;
 
     const [searchValue, setSearchValue] = useState('');
-    const searchInputRef = useRef<HTMLInputElement>(null)
+    const searchInputRef = useRef<HTMLInputElement>(null);
+
+    // ** set value to one to simulate
+    const [page, setPage] = useState<number>(10);
     const {
         isPending: todoPending,
         error: todoError,
         data: todos,
         refetch: todoRefetch,
     } = useQuery({
-        queryKey: ["todoData", user_id, searchValue],
-        queryFn: ({ queryKey }) => getTodos(queryKey[1], queryKey[2]),
+        queryKey: ["todoData", user_id, searchValue, page],
+        queryFn: ({ queryKey }) => getTodos(queryKey[1], queryKey[2], queryKey[3]),
         staleTime: 1000 * 60 * 5,
     })
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(event.target.value);
         todoRefetch();
+    };
+
+    const [hasMore, setHasMore] = useState(true);
+    const loadMore = () => {
+        setPage(prevPage => prevPage + 1);
+        todoRefetch();
+        if (page != todos?.length) {
+            setHasMore(false);
+        }
     };
 
     // * real-time data
@@ -120,6 +133,11 @@ const TaskList = () => {
                         <div className="absolute h-[80dvh] w-[95%] flex items-center justify-center">
                             <FetchingError />
                         </div>
+                    }
+                    {hasMore &&
+                        <Button onClick={loadMore} disabled={todoPending}>
+                            Load more
+                        </Button>
                     }
                 </div>
             </div>
