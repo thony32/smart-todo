@@ -28,7 +28,7 @@ const TaskList = () => {
     const searchInputRef = useRef<HTMLInputElement>(null);
 
     // ** set value to one to simulate
-    const [page, setPage] = useState<number>(10);
+    const [page, setPage] = useState<number>(1);
     const {
         isPending: todoPending,
         error: todoError,
@@ -45,13 +45,9 @@ const TaskList = () => {
         todoRefetch();
     };
 
-    const [hasMore, setHasMore] = useState(true);
     const loadMore = () => {
         setPage(prevPage => prevPage + 1);
         todoRefetch();
-        if (page != todos?.length) {
-            setHasMore(false);
-        }
     };
 
     // * real-time data
@@ -119,7 +115,7 @@ const TaskList = () => {
                                         <p className="text-sm font-medium leading-none">Task one</p>
                                     </div>
                                 </CardContent>
-                                <p className="absolute bottom-1 left-2 text-[8pt]">{formatDate(todo.created_at)}</p>
+                                <p className="absolute bottom-1 left-3 text-[8pt]">{formatDate(todo.created_at)}</p>
                                 <span className="absolute bottom-0 right-0 text-xs font-bold bg-success rounded-br-xl rounded-tl-md pr-2 p-1">1 / {todo.id}</span>
                             </Card>
                         </Link>
@@ -134,8 +130,10 @@ const TaskList = () => {
                             <FetchingError />
                         </div>
                     }
-                    {hasMore &&
-                        <Button onClick={loadMore} disabled={todoPending}>
+                </div>
+                <div className="flex my-5 justify-center">
+                    {page == todos?.length &&
+                        <Button className="bg-transparent hover:bg-transparent text-current border-2" onClick={loadMore} disabled={todoPending}>
                             Load more
                         </Button>
                     }
