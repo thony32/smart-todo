@@ -2,9 +2,9 @@ import supabase from "@/utils/supabaseClient";
 import Todo from "@/models/Todo";
 
 class TodoService {
-    async getTodos(): Promise<Todo[]> {
+    async getTodos(front_user_id: string): Promise<Todo[]> {
         try {
-            const { data: Todos, error } = await supabase.rpc('get_todos');
+            const { data: Todos, error } = await supabase.rpc('get_todos', { front_user_id });
             if (error) {
                 throw error;
             }

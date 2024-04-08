@@ -11,21 +11,24 @@ import { Link } from "@tanstack/react-router"
 import formatDate from "@/utils/dateFormat"
 import SkeletonLoader from "./loading/loader"
 import FetchingError from "./fetchingError"
+import { useAuthStore } from "@/store/session.store"
 
-const getTodos = async () => {
-    return TodoService.getTodos()
+const getTodos = async (user_id: string) => {
+    return TodoService.getTodos(user_id)
 }
 
 const TaskList = () => {
     // * fetch data from the server
+    const session = useAuthStore(state => state.session);
+    const user_id = session?.user.id as string;
     const {
         isPending: todoPending,
         error: todoError,
         data: todos,
         refetch: todoRefetch,
     } = useQuery({
-        queryKey: ["todoData"],
-        queryFn: getTodos,
+        queryKey: ["todoData", user_id],
+        queryFn: ({ queryKey }) => getTodos(queryKey[1]),
         staleTime: 1000 * 60 * 5,
     })
 
