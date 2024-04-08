@@ -95,9 +95,8 @@ const TaskList = () => {
                                         <p className="text-sm font-medium leading-none">Task one</p>
                                     </div>
                                 </CardContent>
-                                <div className="absolute right-3 bottom-2">
-                                    <p className="text-xs">{formatDate(todo.created_at)}</p>
-                                </div>
+                                <p className="absolute bottom-1 left-2 text-[8pt]">{formatDate(todo.created_at)}</p>
+                                <span className="absolute bottom-0 right-0 text-xs font-bold bg-success rounded-br-xl rounded-tl-md pr-2 p-1">1 / {todo.id}</span>
                             </Card>
                         </Link>
                     ))}
