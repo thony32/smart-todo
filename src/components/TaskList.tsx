@@ -5,10 +5,12 @@ import { useEffect, useRef } from "react"
 import toast from "react-hot-toast"
 import { Input } from "./ui/input"
 import useKeyboard from "@/utils/useKeyboard"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
 import Todo from "@/models/Todo"
 import { Link } from "@tanstack/react-router"
 import formatDate from "@/utils/dateFormat"
+import SkeletonLoader from "./loading/loader"
+import FetchingError from "./fetchingError"
 
 const getTodos = async () => {
     return TodoService.getTodos()
@@ -68,8 +70,9 @@ const TaskList = () => {
                 </div>
             </div>
             {/* List of todo */}
-            <div className="h-[80dvh] overflow-y-auto">
+            <div className="h-[80dvh] overflow-y-auto relative">
                 <div className="grid grid-cols-5 gap-4 px-[2%]">
+                    {todoPending && <SkeletonLoader />}
                     {todos?.map((todo: Todo) => (
                         <Link key={todo.id} to="/taskItems">
                             <Card className="cursor-pointer relative h-52 group hover:shadow-[0px_9px_10px_-3px] hover:shadow-success duration-100">
@@ -98,6 +101,12 @@ const TaskList = () => {
                             </Card>
                         </Link>
                     ))}
+                    {
+                        todoError &&
+                        <div className="absolute h-[80dvh] w-[95%] flex items-center justify-center">
+                            {todoError && <FetchingError />}
+                        </div>
+                    }
                 </div>
             </div>
         </div>
