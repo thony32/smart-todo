@@ -1,7 +1,7 @@
 import TodoService from "@/services/TodoService"
 import supabase from "@/utils/supabaseClient"
 import { useQuery } from "@tanstack/react-query"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import toast from "react-hot-toast"
 import { Input } from "./ui/input"
 import useKeyboard from "@/utils/useKeyboard"
@@ -12,25 +12,34 @@ import formatDate from "@/utils/dateFormat"
 import SkeletonLoader from "./loading/loader"
 import FetchingError from "./fetchingError"
 import { useAuthStore } from "@/store/session.store"
+import FetchingVoid from "./fetchingVoid"
 
-const getTodos = async (user_id: string) => {
-    return TodoService.getTodos(user_id)
+const getTodos = async (user_id: string | undefined, search: string | undefined) => {
+    return TodoService.getTodos(user_id, search)
 }
 
 const TaskList = () => {
     // * fetch data from the server
     const session = useAuthStore(state => state.session);
     const user_id = session?.user.id as string;
+
+    const [searchValue, setSearchValue] = useState('');
+    const searchInputRef = useRef<HTMLInputElement>(null)
     const {
         isPending: todoPending,
         error: todoError,
         data: todos,
         refetch: todoRefetch,
     } = useQuery({
-        queryKey: ["todoData", user_id],
-        queryFn: ({ queryKey }) => getTodos(queryKey[1]),
+        queryKey: ["todoData", user_id, searchValue],
+        queryFn: ({ queryKey }) => getTodos(queryKey[1], queryKey[2]),
         staleTime: 1000 * 60 * 5,
     })
+
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(event.target.value);
+        todoRefetch();
+    };
 
     // * real-time data
     useEffect(() => {
@@ -51,7 +60,6 @@ const TaskList = () => {
     }, [])
 
     // * keyboard shortcut
-    const searchInputRef = useRef<HTMLInputElement>(null)
     useKeyboard("f", () => searchInputRef.current?.focus())
 
     return (
@@ -61,7 +69,7 @@ const TaskList = () => {
                     <h1 className="font-semibold first-letter:text-2xl">List of your todo</h1>
                 </div>
                 <div className="flex items-center gap-2 relative">
-                    <Input ref={searchInputRef} type="text" placeholder="Search" />
+                    <Input onChange={handleSearchChange} ref={searchInputRef} type="text" placeholder="Search" />
                     <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 opacity-75">
                         <path
                             strokeLinecap="round"
@@ -103,10 +111,14 @@ const TaskList = () => {
                             </Card>
                         </Link>
                     ))}
-                    {
-                        todoError &&
+                    {todos && todos.length === 0 && (
                         <div className="absolute h-[80dvh] w-[95%] flex items-center justify-center">
-                            {todoError && <FetchingError />}
+                            <FetchingVoid />
+                        </div>
+                    )}
+                    {todoError &&
+                        <div className="absolute h-[80dvh] w-[95%] flex items-center justify-center">
+                            <FetchingError />
                         </div>
                     }
                 </div>
