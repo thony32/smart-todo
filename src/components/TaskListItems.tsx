@@ -1,8 +1,17 @@
 import { Checkbox } from "@radix-ui/react-checkbox"
+import { Link, useParams } from "@tanstack/react-router"
+import { Button } from "./ui/button"
 
 const TaskListItems = () => {
+    const { todo_name } = useParams({ strict: false }) as any
     return (
-        <div>
+        <div className="space-y-6">
+            <div className="flex justify-between items-center">
+                <h1 className="font-semibold first-letter:text-2xl">Task Items for {todo_name}</h1>
+                <Link to="/">
+                    <Button variant={'ghost'}>Back</Button>
+                </Link>
+            </div>
             <div className="grid grid-cols-3 gap-4 max-sm:overflow-x-scroll">
                 <div className="flex flex-col gap-4 items-center p-8">
                     <div className="text-center p-2 rounded-xl bg-destructive/50 w-2/3 first-letter:text-2xl first-letter:font-extrabold font-bold uppercase">Todo</div>
