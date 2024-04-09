@@ -13,23 +13,23 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as TaskItemsTodoidTodonameImport } from './routes/taskItems.$todo_id.$todo_name'
 
 // Create Virtual Routes
 
-const TaskItemsLazyImport = createFileRoute('/taskItems')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
-
-const TaskItemsLazyRoute = TaskItemsLazyImport.update({
-  path: '/taskItems',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/taskItems.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const TaskItemsTodoidTodonameRoute = TaskItemsTodoidTodonameImport.update({
+  path: '/taskItems/$todo_id/$todo_name',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -39,8 +39,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/taskItems': {
-      preLoaderRoute: typeof TaskItemsLazyImport
+    '/taskItems/$todo_id/$todo_name': {
+      preLoaderRoute: typeof TaskItemsTodoidTodonameImport
       parentRoute: typeof rootRoute
     }
   }
@@ -50,7 +50,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
-  TaskItemsLazyRoute,
+  TaskItemsTodoidTodonameRoute,
 ])
 
 /* prettier-ignore-end */

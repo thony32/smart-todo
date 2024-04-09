@@ -94,7 +94,7 @@ const TaskList = () => {
                 <div className="grid grid-cols-5 gap-4 px-[2%]">
                     {todoPending && <SkeletonLoader />}
                     {todos?.map((todo: Todo) => (
-                        <Link key={todo.id} to="/taskItems">
+                        <Link key={todo.id} to="/taskItems/$todo_id/$todo_name" params={(prev: any) => ({ ...prev, todo_id: todo.id , todo_name : todo.name })}>
                             <Card className="cursor-pointer relative h-52 group hover:shadow-[0px_9px_10px_-3px] hover:shadow-success duration-100">
                                 <CardHeader>
                                     <CardTitle className="group-hover:-translate-y-2 group-hover:text-success capitalize duration-75">{todo.name}</CardTitle>
