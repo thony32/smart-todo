@@ -28,7 +28,7 @@ const TaskList = () => {
     const searchInputRef = useRef<HTMLInputElement>(null);
 
     // ** set value to one to simulate
-    const [page, setPage] = useState<number>(2);
+    const [page, setPage] = useState<number>(15);
     const {
         isPending: todoPending,
         error: todoError,
@@ -46,7 +46,7 @@ const TaskList = () => {
     };
 
     const loadMore = () => {
-        setPage(prevPage => prevPage + 2);
+        setPage(prevPage => prevPage + 5);
         todoRefetch();
     };
 
