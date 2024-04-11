@@ -6,9 +6,9 @@ const Navbar = () => {
     return (
         <div className="flex justify-between">
             <div>
-                <h1 className="text-2xl first-letter:text-3xl font-bold text-success font-rusted-bevel">Smart TODO</h1>
+                <h1 className="text-lg sm:text-2xl first-letter:text-3xl font-bold text-success font-rusted-bevel">Smart TODO</h1>
             </div>
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-2 sm:gap-5">
                 <UserInfos />
                 <ThemeToggle />
                 <Logout />
