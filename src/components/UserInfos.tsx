@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import NotificationService from '@/services/NotificationService';
 import supabase from '@/utils/supabaseClient';
 import toast from 'react-hot-toast';
+import getInitial from '@/utils/getInitials';
 
 const UserInfos = () => {
 
@@ -72,7 +73,7 @@ const UserInfos = () => {
                     </div>
                     <Avatar>
                         <AvatarImage src={avatar_url} />
-                        <AvatarFallback>Loading...</AvatarFallback>
+                        <AvatarFallback>{getInitial(full_name)}</AvatarFallback>
                     </Avatar>
                     <div className='flex flex-col gap-2'>
                         <h3 className='text-sm font-extrabold'>{full_name}</h3>
