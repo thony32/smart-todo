@@ -7,7 +7,7 @@ interface TodoItems {
     }[]
 }
 
-const GEMINI_API_KEY = 'AIzaSyDqGNaavyeDZWtVdHx2fOO_YXE0CJ9_cAY'
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY as string;
 
 class GeminiService {
     async getMerlinData({ todos }: TodoItems) {
