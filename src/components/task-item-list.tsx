@@ -67,14 +67,12 @@ const TaskListItems = () => {
         },
     ]
 
-    const [todoOrdered, setTodoOrdered] = useState('') as any
     const [isLoading, setIsLoading] = useState(false)
     const sendMerlin = async () => {
         try {
             setIsLoading(true)
-            setTodoOrdered('')
             const response = await GeminiService.getMerlinData({ todos: todoItems })
-            setTodoOrdered(response?.candidates?.[0]?.content?.parts?.[0]?.text);
+            console.log(response);
         } catch (error) {
             console.log(error);
         } finally {
