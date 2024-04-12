@@ -54,12 +54,15 @@ const TaskListItems = () => {
 
     const todoItems = [
         {
+            number: 1,
             todo: "Dormir",
         },
         {
+            number: 2,
             todo: "Jouer au foot",
         },
         {
+            number: 3,
             todo: "Ragarde les mails importants",
         },
     ]
@@ -70,7 +73,7 @@ const TaskListItems = () => {
         try {
             setIsLoading(true)
             setTodoOrdered('')
-            const response = await GeminiService.getMerlinData(todoItems)
+            const response = await GeminiService.getMerlinData({ todos: todoItems })
             setTodoOrdered(response?.candidates?.[0]?.content?.parts?.[0]?.text);
         } catch (error) {
             console.log(error);

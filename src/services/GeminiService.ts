@@ -1,11 +1,18 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+interface TodoItems {
+    todos: {
+        number: number;
+        todo: string;
+    }[]
+}
+
 const GEMINI_API_KEY = 'AIzaSyDqGNaavyeDZWtVdHx2fOO_YXE0CJ9_cAY'
 
 class GeminiService {
-    async getMerlinData(todos: any[]) {
-        const todosJoin = todos.map(todo => todo.todo).join(",");
-        const message = "Prioritize the following tasks based on reality: " + todosJoin;
+    async getMerlinData({ todos }: TodoItems) {
+        const todosJoin = todos.map(todo => todo.number + ': ' + todo.todo).join("\n");
+        const message = "Prioritize the following tasks based on reality: \n" + todosJoin + "\n" + "Just give the number of the task without separator in the order you want them to be done.";
 
         const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
