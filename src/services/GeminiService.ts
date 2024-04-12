@@ -12,7 +12,7 @@ const GEMINI_API_KEY = 'AIzaSyDqGNaavyeDZWtVdHx2fOO_YXE0CJ9_cAY'
 class GeminiService {
     async getMerlinData({ todos }: TodoItems) {
         const todosJoin = todos.map(todo => todo.number + ': ' + todo.todo).join("\n");
-        const message = "Prioritize the following tasks based on reality: \n" + todosJoin + "\n" + "Just give the number of the task without separator in the order you want them to be done.";
+        const message = "Prioritize the following tasks based on reality: \n" + todosJoin;
 
         const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
