@@ -21,14 +21,14 @@ const getTodos = async (user_id: any, search: any, page: any) => {
 
 const TaskList = () => {
     // * fetch data from the server
-    const session = useAuthStore(state => state.session);
-    const user_id = session?.user.id as string;
+    const session = useAuthStore((state) => state.session)
+    const user_id = session?.user.id as string
 
-    const [searchValue, setSearchValue] = useState('');
-    const searchInputRef = useRef<HTMLInputElement>(null);
+    const [searchValue, setSearchValue] = useState("")
+    const searchInputRef = useRef<HTMLInputElement>(null)
 
     // ** set value to one to simulate
-    const [page, setPage] = useState<number>(15);
+    const [page, setPage] = useState<number>(15)
     const {
         isPending: todoPending,
         error: todoError,
@@ -41,14 +41,14 @@ const TaskList = () => {
     })
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(event.target.value);
-        todoRefetch();
-    };
+        setSearchValue(event.target.value)
+        todoRefetch()
+    }
 
     const loadMore = () => {
-        setPage(prevPage => prevPage + 5);
-        todoRefetch();
-    };
+        setPage((prevPage) => prevPage + 5)
+        todoRefetch()
+    }
 
     // * real-time data
     useEffect(() => {
@@ -94,10 +94,16 @@ const TaskList = () => {
                 <div className="grid grid-cols-5 gap-4 px-[2%]">
                     {todoPending && <SkeletonLoader />}
                     {todos?.map((todo: Todo) => (
-                        <Link key={todo.id} to="/taskItems/$todo_id/$todo_name" params={(prev: any) => ({ ...prev, todo_id: todo.id , todo_name : todo.name })}>
+                        <Link
+                            key={todo.id}
+                            to="/taskItems/$todo_id/$todo_name"
+                            params={(prev: any) => ({ ...prev, todo_id: todo.id, todo_name: todo.name })}
+                        >
                             <Card className="cursor-pointer relative h-52 group hover:shadow-[0px_9px_10px_-3px] hover:shadow-success duration-100">
                                 <CardHeader>
-                                    <CardTitle className="group-hover:-translate-y-2 group-hover:text-success capitalize duration-75">{todo.name}</CardTitle>
+                                    <CardTitle className="group-hover:-translate-y-2 group-hover:text-success capitalize duration-75">
+                                        {todo.name}
+                                    </CardTitle>
                                     <CardDescription className="truncate">{todo.description}</CardDescription>
                                 </CardHeader>
                                 {/* aperçu anle task fotsn f mila clickena de ao hita dool ny fandeany */}
@@ -116,7 +122,9 @@ const TaskList = () => {
                                     </div>
                                 </CardContent>
                                 <p className="absolute bottom-1 left-3 text-[8pt]">{formatDate(todo.created_at)}</p>
-                                <span className="absolute bottom-0 right-0 text-xs font-bold bg-success rounded-br-xl rounded-tl-md pr-2 p-1">1 / {todo.id}</span>
+                                <span className="absolute bottom-0 right-0 text-xs font-bold bg-success rounded-br-xl rounded-tl-md pr-2 p-1">
+                                    1 / {todo.id}
+                                </span>
                             </Card>
                         </Link>
                     ))}
@@ -125,18 +133,18 @@ const TaskList = () => {
                             <FetchingVoid />
                         </div>
                     )}
-                    {todoError &&
+                    {todoError && (
                         <div className="absolute h-[80dvh] w-[95%] flex items-center justify-center">
                             <FetchingError />
                         </div>
-                    }
+                    )}
                 </div>
                 <div className="flex my-5 justify-center">
-                    {page == todos?.length &&
+                    {page == todos?.length && (
                         <Button className="bg-transparent hover:bg-transparent text-current border-2" onClick={loadMore} disabled={todoPending}>
                             Load more
                         </Button>
-                    }
+                    )}
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import { ThemeToggle } from "../theming/theme-toggle"
 import Logout from "../auth/logout"
-import UserInfos from "../UserInfos"
+import UserInfos from "../user-infos"
 
 const Navbar = () => {
     return (
