@@ -10,15 +10,15 @@ const TaskListItems = () => {
     const todoItems = [
         {
             number: 1,
-            todo: "Dormir",
+            todo: "Plier les linges",
         },
         {
             number: 2,
-            todo: "Jouer au foot",
+            todo: "Manger",
         },
         {
             number: 3,
-            todo: "Ragarde les mails importants",
+            todo: "Courir comme un fou",
         },
     ]
 
