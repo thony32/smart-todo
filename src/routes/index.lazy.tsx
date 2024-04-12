@@ -1,5 +1,5 @@
-import AddTaskForm from "@/components/AddTaskForm"
-import TaskList from "@/components/TaskList"
+import AddTaskForm from "@/components/forms/task-form"
+import TaskList from "@/components/task-list"
 import { createLazyFileRoute } from "@tanstack/react-router"
 
 const Index = () => {

@@ -1,4 +1,4 @@
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { LogOutIcon } from "lucide-react";
 import AuthService from "@/services/AuthService";
 

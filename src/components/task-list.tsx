@@ -10,9 +10,9 @@ import Todo from "@/models/Todo"
 import { Link } from "@tanstack/react-router"
 import formatDate from "@/utils/dateFormat"
 import SkeletonLoader from "./loading/loader"
-import FetchingError from "./fetchingError"
+import FetchingError from "./error/fetchingError"
 import { useAuthStore } from "@/store/session.store"
-import FetchingVoid from "./fetchingVoid"
+import FetchingVoid from "./error/fetchingVoid"
 import { Button } from "./ui/button"
 
 const getTodos = async (user_id: any, search: any, page: any) => {

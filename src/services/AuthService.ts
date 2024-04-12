@@ -39,6 +39,17 @@ class AuthService {
             throw error
         }
     }
+    async registerUser(email:string, password:string) {
+        const { user, error }: any = await supabase.auth.signUp({
+          email: email,
+          password: password
+        })
+        if (error) {
+          console.log(error)
+        } else {
+          console.log(user)
+        }
+      }
 }
 
 export default new AuthService()
