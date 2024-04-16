@@ -6,6 +6,8 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { Button } from "../ui/button"
+import TodoItemService from "@/services/TodoItemService"
+import toast from "react-hot-toast"
 
 const validationSchema = Yup.object({
     description: Yup.string().required("Required"),
@@ -23,8 +25,18 @@ const AddTaskItemForm = () => {
         validationSchema: validationSchema,
         onSubmit: async (values) => {
             try {
+                const data = {
+                    todo_id: todo_id,
+                    description: values.description,
+                    note: values.note,
+                }
                 setIsAdding(true)
-                console.log(values)
+                await TodoItemService.create(data)
+                toast.success("Item added successfully !", {
+                    duration: 3000,
+                    position: "bottom-center",
+                    className: "bg-success text-white",
+                })
                 formik.resetForm()
             } catch (error) {
                 console.error(error)

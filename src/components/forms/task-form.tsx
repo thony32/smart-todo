@@ -41,10 +41,10 @@ const AddTaskForm = () => {
                     position: "bottom-center",
                     className: "bg-success text-white",
                 })
+                formik.resetForm()
             } catch (error) {
                 console.error(error)
             } finally {
-                formik.resetForm()
                 setIsAdding(false)
             }
         },
