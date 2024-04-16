@@ -43,7 +43,7 @@ const TaskListItems = () => {
             todoListener.unsubscribe()
         }
     }, [])
-    
+
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
@@ -73,6 +73,7 @@ const TaskListItems = () => {
                             </div>
                         ))
                     }
+                    {items && items.length === 0 && <p>No data</p>}
                 </div>
                 {/* ON GOING */}
                 <div className="flex flex-col gap-4 items-center p-8">
