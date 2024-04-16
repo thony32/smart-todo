@@ -48,7 +48,7 @@ const AddTaskItemForm = () => {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="font-semibold first-letter:text-2xl">Add things to do {todo_id}</h1>
+                <h1 className="font-semibold first-letter:text-2xl">Add things to do</h1>
             </div>
             <div>
                 <form className="space-y-5" onSubmit={formik.handleSubmit}>
