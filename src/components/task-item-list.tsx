@@ -1,11 +1,10 @@
-import { Checkbox } from "@radix-ui/react-checkbox"
 import { Link, useParams } from "@tanstack/react-router"
 import { Button } from "./ui/button"
 import TodoItemService from "@/services/TodoItemService"
 import { useQuery } from "@tanstack/react-query"
 import TodoItem from "@/models/TodoItem"
 import formatDate from "@/utils/dateFormat"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import supabase from "@/utils/supabaseClient"
 
@@ -13,7 +12,15 @@ const findItem = async (id: number) => {
     return TodoItemService.find(id)
 }
 const TaskListItems = () => {
-    const { todo_name, todo_id } = useParams({ strict: false }) as any
+    const { todo_name, todo_id } = useParams({ strict: false }) as any;
+
+    const [truncatedItems, setTruncatedItems] = useState({}) as any;
+    const toggleTruncate = (itemId: any) => {
+        setTruncatedItems((prevState: any) => ({
+            ...prevState,
+            [itemId]: !prevState[itemId]
+        }));
+    };
 
     const {
         isPending: itemPending,
@@ -52,55 +59,48 @@ const TaskListItems = () => {
                     <Button variant={'ghost'}>Back</Button>
                 </Link>
             </div>
-            <div className="grid grid-cols-3 gap-4 max-sm:overflow-x-scroll">
+            <div className="flex justify-evenly gap-4">
                 {/* PENDING */}
-                <div className="flex flex-col gap-4 items-center p-8">
-                    <div className="text-center p-2 rounded-xl bg-destructive/50 w-2/3 first-letter:text-2xl first-letter:font-extrabold font-bold uppercase">Todo</div>
+                <div className="w-1/4 space-y-5">
+                    <div className="flex items-center gap-2">
+                        <label className="text-xl first-letter:text-2xl font-bold text-gray-500">Pending</label>
+                        <span className="text-xs bg-gray-500 px-2 py-1 rounded-badge font-bold">2</span>
+                    </div>
                     {/* Card */}
                     {itemPending && <p>Loading...</p>}
                     {itemError && <p>{itemError.message}</p>}
-                    {
-                        items && items.map((item: TodoItem) => (
-                            <div key={item.id} className="w-2/3 px-8 py-4 rounded-lg bg-secondary border border-destructive/50 flex flex-col justify-center gap-4">
-                                <div className="flex items-center gap-12">
-                                    <Checkbox />
-                                    <p className="font-bold text-sm">{item.description}</p>
+                    <div className="space-y-1">
+                        {
+                            items && items.map((item: TodoItem) => (
+                                <div key={item.id} className="bg-gray-500/15 px-3 py-2 cursor-grab space-y-3">
+                                    <div className="space-y-1">
+                                        <p className="font-bold text-sm">{item.description}</p>
+                                        <p key={item.id} className={`text-xs font-light ${truncatedItems[item.id || 0] ? 'text-clip' : 'truncate'} cursor-pointer`}
+                                            onClick={() => toggleTruncate(item.id)}>
+                                            {item.note}
+                                        </p>
+                                    </div>
+                                    <div className="flex justify-end">
+                                        <span className="text-xs">{formatDate(item.created_at)}</span>
+                                    </div>
                                 </div>
-                                <p className="text-xs font-light">
-                                    {item.note}
-                                </p>
-                                <span>{formatDate(item.created_at)}</span>
-                            </div>
-                        ))
-                    }
+                            ))
+                        }
+                    </div>
                     {items && items.length === 0 && <p>No data</p>}
                 </div>
                 {/* ON GOING */}
-                <div className="flex flex-col gap-4 items-center p-8">
-                    <div className="text-center p-2 rounded-xl bg-warning/50 w-2/3 first-letter:text-2xl first-letter:font-extrabold font-bold uppercase">On going...</div>
-                    <div className="w-2/3 px-8 py-4 rounded-lg bg-secondary border border-warning/50 flex flex-col justify-center gap-4">
-                        <div className="flex items-center gap-12">
-                            <Checkbox />
-                            <p className="font-bold text-sm">To do title</p>
-                        </div>
-                        <p className="text-xs font-light">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem quibusdam a aut provident quia, error earum, sint
-                            qui odit dolorum tenetur ex vitae ipsam accusamus consequuntur repellat cupiditate pariatur itaque?
-                        </p>
+                <div className="w-1/4">
+                    <div className="flex items-center gap-2">
+                        <label className="text-xl first-letter:text-2xl font-bold text-sky-500">On going...</label>
+                        <span className="text-xs bg-sky-500 px-2 py-1 rounded-badge font-bold">2</span>
                     </div>
                 </div>
                 {/* DONE */}
-                <div className="flex flex-col gap-4 items-center p-8">
-                    <div className="text-center p-2 rounded-xl bg-success/50 w-2/3 first-letter:text-2xl first-letter:font-extrabold font-bold uppercase">Done</div>
-                    <div className="w-2/3 px-8 py-4 rounded-lg bg-secondary border border-success/50 flex flex-col justify-center gap-4">
-                        <div className="flex items-center gap-12">
-                            <Checkbox checked />
-                            <p className="font-bold text-sm line-through">To do title</p>
-                        </div>
-                        <p className="text-xs line-through font-light">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem quibusdam a aut provident quia, error earum, sint
-                            qui odit dolorum tenetur ex vitae ipsam accusamus consequuntur repellat cupiditate pariatur itaque?
-                        </p>
+                <div className="w-1/4">
+                    <div className="flex items-center gap-2">
+                        <label className="text-xl first-letter:text-2xl font-bold text-success">Finished</label>
+                        <span className="text-xs bg-success px-2 py-1 rounded-badge font-bold">2</span>
                     </div>
                 </div>
             </div>

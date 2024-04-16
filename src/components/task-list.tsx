@@ -111,7 +111,7 @@ const TaskList = () => {
                                 <CardContent>
                                     {todo.TodoItems?.map((item: TodoItem) => (
                                         <div key={item.id} className="mb-2 grid grid-cols-[25px_1fr] items-start pb-2 last:mb-0 last:pb-0">
-                                            <span className={`flex h-2 w-2 translate-y-1 rounded-full ${item.state === 'pending' && 'bg-gray-500'} ${item.state === 'ongoing' && 'bg-yellow-500'} ${item.state === 'finished' && 'bg-success'}`} />
+                                            <span className={`flex h-2 w-2 translate-y-1 rounded-full ${item.state === 'pending' && 'bg-gray-500'} ${item.state === 'ongoing' && 'bg-sky-500'} ${item.state === 'finished' && 'bg-success'}`} />
                                             <p className="text-sm font-medium leading-none">{item.description}</p>
                                         </div>
                                     ))}
