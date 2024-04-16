@@ -59,7 +59,7 @@ const TaskListItems = () => {
                     <Button variant={'ghost'}>Back</Button>
                 </Link>
             </div>
-            <div className="flex justify-evenly gap-4">
+            <div className="flex justify-around gap-7">
                 {/* PENDING */}
                 <div className="w-1/4 space-y-5">
                     <div className="flex items-center gap-2">
@@ -72,7 +72,7 @@ const TaskListItems = () => {
                     <div className="space-y-1">
                         {
                             items && items.map((item: TodoItem) => (
-                                <div key={item.id} className="bg-gray-500/15 px-3 py-2 cursor-grab space-y-3">
+                                <div key={item.id} className="bg-gray-500/15 px-3 py-2 cursor-grab space-y-5">
                                     <div className="space-y-1">
                                         <p className="font-bold text-sm">{item.description}</p>
                                         <p key={item.id} className={`text-xs font-light ${truncatedItems[item.id || 0] ? 'text-clip' : 'truncate'} cursor-pointer`}
@@ -80,7 +80,10 @@ const TaskListItems = () => {
                                             {item.note}
                                         </p>
                                     </div>
-                                    <div className="flex justify-end">
+                                    <div className="flex justify-between items-center">
+                                        <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 cursor-pointer hover:scale-105 duration-100">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m6 4.125 2.25 2.25m0 0 2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                                        </svg>
                                         <span className="text-xs">{formatDate(item.created_at)}</span>
                                     </div>
                                 </div>
@@ -101,6 +104,13 @@ const TaskListItems = () => {
                     <div className="flex items-center gap-2">
                         <label className="text-xl first-letter:text-2xl font-bold text-success">Finished</label>
                         <span className="text-xs bg-success px-2 py-1 rounded-badge font-bold">2</span>
+                    </div>
+                </div>
+                {/* ARCHIVED */}
+                <div className="w-1/4">
+                    <div className="flex items-center gap-2">
+                        <label className="text-xl first-letter:text-2xl font-bold text-yellow-200">Archived</label>
+                        <span className="text-xs bg-yellow-200 text-warning-content px-2 py-1 rounded-badge font-bold">2</span>
                     </div>
                 </div>
             </div>
