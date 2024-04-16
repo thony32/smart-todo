@@ -4,7 +4,12 @@ import supabase from "@/utils/supabaseClient";
 class TodoItemService {
     async find(todo_id: number, limit?: number): Promise<TodoItem[]> {
         try {
-            const { data, error } = await supabase.from('TodoItems').select().filter('todo_id', 'eq', todo_id).limit(limit as number);
+            const { data, error } = await supabase.from('TodoItems')
+                .select()
+                .filter('todo_id', 'eq', todo_id)
+                .eq('state', 'pending')
+                .order('id', { ascending: false })
+                .limit(limit as number);
             if (error) {
                 throw error;
             }
