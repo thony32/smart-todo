@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Button } from "./ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Button } from "../ui/button";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import toast from "react-hot-toast";

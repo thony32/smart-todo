@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import ThemeHandler from "../components/ThemeHandler";
-import Navbar from "../components/Navbar";
+import ThemeHandler from "../components/theming/theme-handler";
+import Navbar from "../components/layout/navbar";
 import { createRootRoute, Outlet } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 import { AuthProvider } from "@/contexts/AuthContext";
 import { useAuthStore } from "@/store/session.store";
-import Login from "@/components/Login";
+import Login from "@/components/auth/login";
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import MadeWith from "@/components/layout/tech";
 
 
 export const Route = createRootRoute({
@@ -24,7 +25,7 @@ export const Route = createRootRoute({
                                 <Login />
                             </div>
                             :
-                            <>
+                            <div className="h-screen w-screen">
                                 <div className="p-3">
                                     <Navbar />
                                 </div>
@@ -34,8 +35,11 @@ export const Route = createRootRoute({
                                     </QueryClientProvider>
                                 </main>
                                 <TanStackRouterDevtools />
-                            </>
+                            </div>
                     }
+                    <div className="fixed bottom-2 right-2">
+                        <MadeWith />
+                    </div>
                 </ThemeHandler>
                 <Toaster />
             </AuthProvider>

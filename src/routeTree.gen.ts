@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as TaskItemsTodoidTodonameImport } from './routes/taskItems.$todo_id.$todo_name'
 
 // Create Virtual Routes
 
@@ -25,6 +26,11 @@ const IndexLazyRoute = IndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
+const TaskItemsTodoidTodonameRoute = TaskItemsTodoidTodonameImport.update({
+  path: '/taskItems/$todo_id/$todo_name',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -33,11 +39,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/taskItems/$todo_id/$todo_name': {
+      preLoaderRoute: typeof TaskItemsTodoidTodonameImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([IndexLazyRoute])
+export const routeTree = rootRoute.addChildren([
+  IndexLazyRoute,
+  TaskItemsTodoidTodonameRoute,
+])
 
 /* prettier-ignore-end */
