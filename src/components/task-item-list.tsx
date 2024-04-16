@@ -64,7 +64,7 @@ const TaskListItems = () => {
                 <div className="w-1/4 space-y-5">
                     <div className="flex items-center gap-2">
                         <label className="text-xl first-letter:text-2xl font-bold text-gray-500">Pending</label>
-                        <span className="text-xs bg-gray-500 px-2 py-1 rounded-badge font-bold">2</span>
+                        <span className="text-xs bg-gray-500 px-2 py-1 rounded-badge font-bold">{items?.length}</span>
                     </div>
                     {/* Card */}
                     {itemPending && <p>Loading...</p>}
