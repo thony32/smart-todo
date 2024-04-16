@@ -14,9 +14,10 @@ import FetchingError from "./error/fetchingError"
 import { useAuthStore } from "@/store/session.store"
 import FetchingVoid from "./error/fetchingVoid"
 import { Button } from "./ui/button"
+import TodoItem from "@/models/TodoItem"
 
-const getTodos = async (user_id: any, search: any, page: any) => {
-    return TodoService.getTodos({ front_user_id: user_id, search: search, page_size: page })
+const getTodosItems = async (user_id: any, page: any, search: any) => {
+    return TodoService.getTodosItems(user_id, page, search)
 }
 
 const TaskList = () => {
@@ -35,8 +36,8 @@ const TaskList = () => {
         data: todos,
         refetch: todoRefetch,
     } = useQuery({
-        queryKey: ["todoData", user_id, searchValue, page],
-        queryFn: ({ queryKey }) => getTodos(queryKey[1], queryKey[2], queryKey[3]),
+        queryKey: ["todoData", user_id, page, searchValue],
+        queryFn: ({ queryKey }) => getTodosItems(queryKey[1], queryKey[2], queryKey[3]),
         staleTime: 1000 * 60 * 5,
     })
 
@@ -108,22 +109,17 @@ const TaskList = () => {
                                 </CardHeader>
                                 {/* aperçu anle task fotsn f mila clickena de ao hita dool ny fandeany */}
                                 <CardContent>
-                                    <div className="mb-2 grid grid-cols-[25px_1fr] items-start pb-2 last:mb-0 last:pb-0">
-                                        <span className="flex h-2 w-2 translate-y-1 rounded-full bg-green-500" />
-                                        <p className="text-sm font-medium leading-none">Task one</p>
-                                    </div>
-                                    <div className="mb-2 grid grid-cols-[25px_1fr] items-start pb-2 last:mb-0 last:pb-0">
-                                        <span className="flex h-2 w-2 translate-y-1 rounded-full bg-gray-500" />
-                                        <p className="text-sm font-medium leading-none">Task one</p>
-                                    </div>
-                                    <div className="mb-2 grid grid-cols-[25px_1fr] items-start pb-2 last:mb-0 last:pb-0">
-                                        <span className="flex h-2 w-2 translate-y-1 rounded-full bg-yellow-500" />
-                                        <p className="text-sm font-medium leading-none">Task one</p>
-                                    </div>
+                                    {todo.TodoItems?.map((item: TodoItem) => (
+                                        <div key={item.id} className="mb-2 grid grid-cols-[25px_1fr] items-start pb-2 last:mb-0 last:pb-0">
+                                            <span className={`flex h-2 w-2 translate-y-1 rounded-full ${item.state === 'pending' && 'bg-gray-500'} ${item.state === 'ongoing' && 'bg-yellow-500'} ${item.state === 'finished' && 'bg-success'}`} />
+                                            <p className="text-sm font-medium leading-none">{item.description}</p>
+                                        </div>
+                                    ))}
+                                    {todo.TodoItems?.length === 0 && <span>No things to do here</span>}
                                 </CardContent>
                                 <p className="absolute bottom-1 left-3 text-[8pt]">{formatDate(todo.created_at)}</p>
                                 <span className="absolute bottom-0 right-0 text-xs font-bold bg-success rounded-br-xl rounded-tl-md pr-2 p-1">
-                                    1 / {todo.id}
+                                    {todo.TodoItems?.filter(item => item.state === 'success').length} / {todo.TodoItems?.length}
                                 </span>
                             </Card>
                         </Link>

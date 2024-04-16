@@ -3,6 +3,7 @@ interface TodoItem {
     todo_id?: number;
     description?: string;
     note?: string;
+    state?: string;
     created_at?: Date;
     finished_at?: Date;
 }
