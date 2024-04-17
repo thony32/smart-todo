@@ -100,7 +100,7 @@ const TaskList = () => {
                             to="/taskItems/$todo_id/$todo_name"
                             params={(prev: any) => ({ ...prev, todo_id: todo.id, todo_name: todo.name })}
                         >
-                            <Card className="cursor-pointer relative h-52 group hover:shadow-[0px_9px_10px_-3px] hover:shadow-success duration-100">
+                            <Card className="cursor-pointer relative h-48 group hover:shadow-[0px_9px_10px_-3px] hover:shadow-success duration-100">
                                 <CardHeader>
                                     <CardTitle className="group-hover:-translate-y-2 group-hover:text-success capitalize duration-75">
                                         {todo.name}
@@ -108,17 +108,22 @@ const TaskList = () => {
                                     <CardDescription className="truncate">{todo.description}</CardDescription>
                                 </CardHeader>
                                 {/* aperçu anle task fotsn f mila clickena de ao hita dool ny fandeany */}
-                                <CardContent>
-                                    {todo.TodoItems?.map((item: TodoItem) => (
-                                        <div key={item.id} className="mb-2 grid grid-cols-[25px_1fr] items-start pb-2 last:mb-0 last:pb-0">
-                                            <span className={`flex h-2 w-2 translate-y-1 rounded-full ${item.state === 'pending' && 'bg-gray-500'} ${item.state === 'ongoing' && 'bg-sky-500'} ${item.state === 'finished' && 'bg-success'}`} />
-                                            <p className="text-sm font-medium leading-none">{item.description}</p>
+                                <CardContent className="relative">
+                                    {todo.TodoItems?.slice(0, 3).map((item: TodoItem) => (
+                                        <div key={item.id} className="flex items-center gap-2 mb-2">
+                                            <span className={`flex h-1.5 w-1.5 rounded-full ${item.state === 'pending' && 'bg-gray-500'} ${item.state === 'ongoing' && 'bg-sky-500'} ${item.state === 'finished' && 'bg-success'}`} />
+                                            <p className="text-xs font-light leading-none">{item.description}</p>
                                         </div>
                                     ))}
-                                    {todo.TodoItems?.length === 0 && <span>No things to do here</span>}
+                                    {todo.TodoItems && todo.TodoItems?.length > 3 &&
+                                        <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 absolute bottom-2 left-5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                        </svg>
+                                    }
+                                    {todo.TodoItems?.length === 0 && <span className="text-xs font-light leading-none">No things to do here</span>}
                                 </CardContent>
                                 <p className="absolute bottom-1 left-3 text-[8pt]">{formatDate(todo.created_at)}</p>
-                                <span className="absolute bottom-0 right-0 text-xs font-bold bg-success rounded-br-xl rounded-tl-md pr-2 p-1">
+                                <span className={`absolute bottom-0 right-0 text-xs font-bold bg-success rounded-br-xl rounded-tl-md pr-2 p-1 ${todo.TodoItems?.length === 0 && 'hidden'}`}>
                                     {todo.TodoItems?.filter(item => item.state === 'success').length} / {todo.TodoItems?.length}
                                 </span>
                             </Card>
