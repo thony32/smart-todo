@@ -52,23 +52,12 @@ const TaskListItems = () => {
         }
     }, [])
 
-    const todoItems = [
-        {
-            number: 1,
-            todo: "Plier les linges",
-        },
-        {
-            number: 2,
-            todo: "Manger",
-        },
-        {
-            number: 3,
-            todo: "Courir comme un fou",
-        },
-    ]
-
     const [isLoading, setIsLoading] = useState(false)
     const sendMerlin = async () => {
+        const todoItems = items?.map(item => ({
+            number: item.id,
+            todo: item.description
+        })) as any;
         try {
             setIsLoading(true)
             const response = await GeminiService.getMerlinData({ todos: todoItems })
