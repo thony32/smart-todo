@@ -52,7 +52,8 @@ const TaskListItems = () => {
         }
     }, [])
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+    const [orderedTodos, setOrderedTodos] = useState([]) as any;
     const sendMerlin = async () => {
         const todoItems = items?.map(item => ({
             number: item.id,
@@ -60,8 +61,13 @@ const TaskListItems = () => {
         })) as any;
         try {
             setIsLoading(true)
+            setOrderedTodos([])
             const response = await GeminiService.getMerlinData({ todos: todoItems })
-            console.log(response);
+            const arrangedItems = response?.map((todo: any, index: number) => ({
+                ...todo,
+                key: index + 1
+            }));
+            setOrderedTodos(arrangedItems)
         } catch (error) {
             console.log(error);
         } finally {
@@ -98,23 +104,34 @@ const TaskListItems = () => {
                     {itemError && <p>{itemError.message}</p>}
                     <div className="space-y-1">
                         {
-                            items && items.map((item: TodoItem) => (
-                                <div key={item.id} className="bg-gray-500/15 px-3 py-2 cursor-grab space-y-5">
-                                    <div className="space-y-1">
-                                        <p className="font-bold text-sm">{item.description}</p>
-                                        <p key={item.id} className={`text-xs font-light ${truncatedItems[item.id || 0] ? 'text-clip' : 'truncate'} cursor-pointer`}
-                                            onClick={() => toggleTruncate(item.id)}>
-                                            {item.note}
-                                        </p>
+                            items?.map((item: TodoItem, index) => {
+                                const priority = orderedTodos.find((orderedTodo: any) => orderedTodo.todo === item.description);
+
+                                const priorityBadge = priority ? (
+                                    <div key={index} className="badge badge-info badge-sm">{priority.key}</div>
+                                ) : null;
+
+                                return (
+                                    <div key={item.id} className="bg-gray-500/15 px-3 py-2 cursor-grab space-y-5">
+                                        <div className="space-y-1">
+                                            <div className="flex items-center justify-between">
+                                                <p className="font-bold text-sm">{item.description}</p>
+                                                {priorityBadge}
+                                            </div>
+                                            <p key={item.id} className={`text-xs font-light ${truncatedItems[item.id || 0] ? 'text-clip' : 'truncate'} cursor-pointer`}
+                                                onClick={() => toggleTruncate(item.id)}>
+                                                {item.note}
+                                            </p>
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 cursor-pointer hover:scale-105 duration-100">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m6 4.125 2.25 2.25m0 0 2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                                            </svg>
+                                            <span className="text-xs">{formatDate(item.created_at)}</span>
+                                        </div>
                                     </div>
-                                    <div className="flex justify-between items-center">
-                                        <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 cursor-pointer hover:scale-105 duration-100">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m6 4.125 2.25 2.25m0 0 2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
-                                        </svg>
-                                        <span className="text-xs">{formatDate(item.created_at)}</span>
-                                    </div>
-                                </div>
-                            ))
+                                );
+                            })
                         }
                     </div>
                     {items && items.length === 0 && <p>No data</p>}
