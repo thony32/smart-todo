@@ -1,4 +1,4 @@
-import { Link, useParams } from "@tanstack/react-router"
+import { Link, useNavigate, useParams } from "@tanstack/react-router"
 import { Button } from "./ui/button"
 import TodoItemService from "@/services/TodoItemService"
 import { useQuery } from "@tanstack/react-query"
@@ -8,6 +8,8 @@ import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import supabase from "@/utils/supabaseClient"
 import GeminiService from "@/services/GeminiService"
+import taskOwner from "@/utils/taskOwner"
+import { useAuthStore } from "@/store/session.store"
 
 const findItem = async (id: number) => {
     return TodoItemService.find(id)
@@ -74,6 +76,19 @@ const TaskListItems = () => {
             setIsLoading(false)
         }
     }
+
+    // * check task owner
+    const session = useAuthStore((state) => state.session)
+    const navigate = useNavigate()
+    useEffect(() => {
+        async function checkOwner() {
+            const isOwner = await taskOwner(session?.user.id, todo_id)
+            if (!isOwner) {
+                navigate({ to: "/" });
+            }
+        }
+        checkOwner()
+    }, [])
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
