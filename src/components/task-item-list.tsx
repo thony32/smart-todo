@@ -141,7 +141,7 @@ const TaskListItems = () => {
                         {
                             items?.map((item: TodoItem) => {
                                 return (
-                                    <div key={item.id} className="bg-gray-500/15 px-3 py-2 cursor-grab space-y-5">
+                                    <div key={item.id} className={`bg-gray-500/15 px-3 py-2 cursor-grab space-y-5 ${isLoading && 'skeleton'}`}>
                                         <div className="space-y-1">
                                             <div className="flex items-center justify-between">
                                                 <p className="font-bold text-sm">{item.description}</p>
