@@ -8,7 +8,7 @@ class TodoItemService {
                 .select()
                 .filter('todo_id', 'eq', todo_id)
                 .eq('state', 'pending')
-                .order('id', { ascending: false })
+                .order('number', { ascending: true })
                 .limit(limit as number);
             if (error) {
                 throw error;
@@ -21,6 +21,31 @@ class TodoItemService {
     async create(TodoItem: TodoItem) {
         try {
             const { data, error } = await supabase.from('TodoItems').insert(TodoItem);
+            if (error) {
+                throw error;
+            }
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    }
+    async rearrange(arrangeData: TodoItem[]) {
+        try {
+            arrangeData.forEach(async (item: any) => {
+                const { data, error } = await supabase.from('TodoItems').update({ number: item.key }).eq('id', item.number).select();
+                if (error) {
+                    throw error;
+                }
+                return data;
+            });
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async removeArrange(id: number) {
+        try {
+            const { data, error } = await supabase.from('TodoItems').update({ number: null }).eq('todo_id', id).select();
             if (error) {
                 throw error;
             }
