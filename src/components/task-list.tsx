@@ -111,20 +111,36 @@ const TaskList = () => {
                                 <CardContent className="relative">
                                     {todo.TodoItems?.slice(0, 3).map((item: TodoItem) => (
                                         <div key={item.id} className="flex items-center gap-2 mb-2">
-                                            <span className={`flex h-1 sm:h-1.5 sm:w-1.5 w-1 rounded-full ${item.state === 'pending' && 'bg-gray-500'} ${item.state === 'ongoing' && 'bg-sky-500'} ${item.state === 'finished' && 'bg-success'}`} />
+                                            <span
+                                                className={`flex h-1 sm:h-1.5 sm:w-1.5 w-1 rounded-full ${item.state === "pending" && "bg-gray-500"} ${item.state === "ongoing" && "bg-sky-500"} ${item.state === "finished" && "bg-success"}`}
+                                            />
                                             <p className="text-[7pt] sm:text-xs font-light leading-none">{item.description}</p>
                                         </div>
                                     ))}
-                                    {todo.TodoItems && todo.TodoItems?.length > 3 &&
-                                        <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 sm:w-6 absolute bottom-2 left-5">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                    {todo.TodoItems && todo.TodoItems?.length > 3 && (
+                                        <svg
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={1.5}
+                                            stroke="currentColor"
+                                            className="w-4 sm:w-6 absolute bottom-2 left-5"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                                            />
                                         </svg>
-                                    }
-                                    {todo.TodoItems?.length === 0 && <span className="text-[7pt] sm:text-xs font-light leading-none">No things to do here</span>}
+                                    )}
+                                    {todo.TodoItems?.length === 0 && (
+                                        <span className="text-[7pt] sm:text-xs font-light leading-none">No things to do here</span>
+                                    )}
                                 </CardContent>
                                 <p className="absolute bottom-1 left-3 text-[6pt] sm:text-[8pt]">{formatDate(todo.created_at)}</p>
-                                <span className={`absolute bottom-0 right-0 text-[6pt] sm:text-xs font-bold bg-success rounded-br-xl rounded-tl-md pr-2 p-1 ${todo.TodoItems?.length === 0 && 'hidden'}`}>
-                                    {todo.TodoItems?.filter(item => item.state === 'success').length} / {todo.TodoItems?.length}
+                                <span
+                                    className={`absolute bottom-0 right-0 text-[6pt] sm:text-xs font-bold bg-success rounded-br-xl rounded-tl-md pr-2 p-1 ${todo.TodoItems?.length === 0 && "hidden"}`}
+                                >
+                                    {todo.TodoItems?.filter((item) => item.state === "success").length} / {todo.TodoItems?.length}
                                 </span>
                             </Card>
                         </Link>
