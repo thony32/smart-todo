@@ -25,7 +25,7 @@ export const Route = createRootRoute({
                                 <Login />
                             </div>
                             :
-                            <div className="h-screen w-screen">
+                            <div className="md:h-screen h-full w-screen">
                                 <div className="p-3">
                                     <Navbar />
                                 </div>
